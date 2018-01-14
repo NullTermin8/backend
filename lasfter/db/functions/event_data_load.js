@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 * @param {string} token
 * @returns {string}
 */
-module.exports = (token, receive_id, give_id, event_id, amount, context, callback) => {
+module.exports = (token, context, callback) => {
   const pool = new Pool({
 	user: process.env.pg_user,
     host: process.env.pg_host,
@@ -22,5 +22,5 @@ module.exports = (token, receive_id, give_id, event_id, amount, context, callbac
   
   // XXX: use a transaction
   return pool.query('SELECT * FROM events')
-    .catch(err => callback(err));
+    .catch(err => callback(err));l
 };
