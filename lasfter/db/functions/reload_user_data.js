@@ -2,10 +2,9 @@ const { Pool } = require('pg');
 const jwt = require('jsonwebtoken');
 
 /**
-* A function that transfers currency from one user to another
+* A function that returns all user and user_event data for a certain user
 * @param {string} token
 * @param {integer} user_id
-* @param {number} amount
 * @returns {string}
 */
 module.exports = (token, user_id, context, callback) => {
