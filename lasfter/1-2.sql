@@ -12,9 +12,10 @@ WITH (
 
 CREATE TABLE "events"
 (
+  event_id serial,
   name character(128) NOT NULL,
   organizer_id serial REFERENCES users(id),
-  PRIMARY KEY(name, organizer_id)
+  PRIMARY KEY(event_id, organizer_id)
 );
 
 CREATE TYPE "role" AS ENUM ('admin', 'worker', 'participant');
@@ -22,10 +23,10 @@ CREATE TYPE "role" AS ENUM ('admin', 'worker', 'participant');
 CREATE TABLE "users_events"
 (
   user_id serial REFERENCES users(id),
-  event_name character(128) REFERENCES events(name),
+  event_id character(128) REFERENCES events(event_id),
   balance integer,
   user_role role,
-  PRIMARY KEY (user_id, event_name)
+  PRIMARY KEY (user_id, event_id)
 );
 
 CREATE TABLE "redeemables"
