@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 /**
 * Consume email and password and output JWT if password is valid
 * @param {string} token
+* @param {integer} worker_id
 * @param {string} event_name
 * @returns {string}
 */
@@ -18,9 +19,11 @@ module.exports = (token, worker_id, event_name, context, callback) => {
     ssl: true
   });
 
-  const user = jwt.verify(token, process.env.secret));
-  if (!user) {
-    return callback(null, "unauthorized");
+  let user;
+  try {
+    user = jwt.verify(token, process.env.secret);
+  } catch(err) {
+    return callback(null, err);
   }
 
   // also give workers a big balance

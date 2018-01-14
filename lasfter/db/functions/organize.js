@@ -18,9 +18,11 @@ module.exports = (token, event_name, context, callback) => {
     ssl: true
   });
 
-  const user = jwt.verify(token, process.env.secret));
-  if (!user) {
-    return callback(null, "unauthorized");
+  let user;
+  try {
+    user = jwt.verify(token, process.env.secret);
+  } catch(err) {
+    return callback(null, err);
   }
 
   // just give organizers a big balance so they can transfer to participants lmao

@@ -21,7 +21,7 @@ module.exports = (email, password, context, callback) => {
   return pool.query('SELECT * FROM users WHERE email = $1', [email])
     .then(res => {
       const hash = res.rows[0].password.trim();
-      const user_info = {email: res.rows[0].email, id: res.rows[0].id}; 
+      const user_info = {email: res.rows[0].email.trim(), id: res.rows[0].id}; 
       return argon2.verify(hash, password)
         .then(matched => callback(null, {token: jwt.sign(user_info, process.env.secret), user: user_info}))
         .catch(err => callback(err));
