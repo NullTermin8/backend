@@ -19,6 +19,7 @@
     }
   },
   "devDependencies": {
+    "jsonwebtoken": "^8.1.0",
     "pg": "^7.4.1"
   }
 }
